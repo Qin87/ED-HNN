@@ -155,9 +155,10 @@ if __name__ == '__main__':
     parser.add_argument('--config', is_config_file=True)
 
     # Dataset specific arguments
-    parser.add_argument('--dname', default='walmart-trips-100')
-    parser.add_argument('--data_dir', type=str, required=True)
-    parser.add_argument('--raw_data_dir', type=str, required=True)
+    parser.add_argument('--dname', default='pubmed',choices=['walmart-trips', 'senate-committees', 'house-committees', 'cora', 'citeseer', 'pubmed','coauthor_dblp', 'coauthor_cora'])
+    parser.add_argument('--raw_data_dir', type=str, default='./rawdata/', help='Directory for raw data')
+    parser.add_argument('--data_dir', type=str, default='./data/', help='Directory for processed data')
+
     parser.add_argument('--train_prop', type=float, default=0.5)
     parser.add_argument('--valid_prop', type=float, default=0.25)
     parser.add_argument('--feature_noise', default='1', type=str, help='std for synthetic feature noise')
@@ -235,6 +236,16 @@ if __name__ == '__main__':
     
     #     Use the line below for .py file
     args = parser.parse_args()
+    if args.dname in ['cora', 'citeseer', 'pubmed']:
+        args.raw_data_dir += 'cocitation/' + args.dname
+        args.data_dir += 'cocitation/' + args.dname
+    elif args.dname in ['coauthor_dblp', 'coauthor_cora']:
+        dname = args.dname.split('_')
+        args.raw_data_dir += 'coauthorship/' + dname[1]
+        args.data_dir += 'coauthorship/'+ dname[1]
+    else:
+        args.raw_data_dir +=  args.dname
+        args.data_dir += args.dname
     #     Use the line below for notebook
     # args = parser.parse_args([])
     # args, _ = parser.parse_known_args()

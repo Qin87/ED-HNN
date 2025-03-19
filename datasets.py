@@ -82,7 +82,7 @@ class HypergraphDataset(InMemoryDataset):
         name, _ = HypergraphDataset.parse_dataset_name(name)
         return (name in HypergraphDataset.existing_dataset)
 
-    def __init__(self, root, name,  path_to_download='./raw_data',
+    def __init__(self, root, name,  path_to_download='./rawdata',
         feature_noise = None, transform = None, pre_transform = None):
 
         assert self.dataset_exists(name), f'Dataset {name} is not defined'

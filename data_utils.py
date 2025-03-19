@@ -127,7 +127,7 @@ def load_citation_dataset(path, dataset):
         edge_idx += 1
 
     edge_index = np.array([ node_list + edge_list,
-                            edge_list + node_list], dtype = np.int)
+                            edge_list + node_list], dtype = np.int32)   # Qin revise int
     edge_index = torch.LongTensor(edge_index)
 
     data = Data(x = features,
